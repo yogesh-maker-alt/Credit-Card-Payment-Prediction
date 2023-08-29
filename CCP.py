@@ -7,7 +7,7 @@ import numpy as np
 
 def Prediction(x):
     
-    with open('E:\decision_model.pkl', 'rb') as file:
+    with open('decision_model.pkl', 'rb') as file:
         loaded_model = pk.load(file) 
     
     prediction = loaded_model.predict(x.reshape(1,-1))
