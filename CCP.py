@@ -7,7 +7,7 @@ import numpy as np
 
 def Prediction(x):
     
-    with open('decision_model.pkl', 'rb') as file:
+    with open('D:\DBDA Project\decision_model.pkl', 'rb') as file:
         loaded_model = pk.load(file) 
     
     prediction = loaded_model.predict(x.reshape(1,-1))
@@ -69,13 +69,13 @@ def run():
     st.write("Fill in the required information to predict loan approval.")
 
     # Add input fields for the required features with custom styling
-    Credit_amt = st.number_input("💰 Credit Card Amount")
-    population = st.number_input("🌍 Population")
-    distance = st.number_input("🏢 Distance")
-    hour = st.number_input("🌎 Hour")
-    history_30 = st.number_input("🏢  History Days 30")
-    interaction_30 = st.number_input("🏙️ Interattion Days 30")
-    credit_card_number = st.number_input("💳 Credit Card Number")
+    Credit_amt = st.number_input("💰 Credit Card Amount", step=1, value=0)
+    population = st.number_input("🌍 Population", step=1, value=0)
+    distance = st.number_input("🏢 Distance", step=1, value=0)
+    hour = st.number_input("🌎 Hour", step=1, value=0)
+    history_30 = st.number_input("🏢  History Days 30", step=1, value=1)
+    interaction_30 = st.number_input("🏙️ Interattion Days 30", step=1, value=1)
+    credit_card_number = st.number_input("💳 Credit Card Number", step=1, value=1)
 
     # Apply styling to the submit button
     submit_button_style = "background-color: #007ACC; color: white; padding: 10px; border-radius: 5px; text-align: center;"
@@ -100,5 +100,5 @@ def run():
 run()
 
 
-#np.array([841.623325,	595,	0.754073,	16,	4063.217256,4.839003]).reshape(1,-1)
+#np.array([841.623325,	595,	0.754073,	16,	4063.2 17256,4.839003]).reshape(1,-1)
 
