@@ -1,4 +1,4 @@
-Streamlit==version 1.26.0
+streamlit==version 1.26.0
 pandas==1.5.1
 numpy==1.23.5
 scipy==1.2.2
