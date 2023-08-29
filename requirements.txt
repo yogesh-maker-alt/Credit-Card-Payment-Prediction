@@ -1,0 +1,6 @@
+pip install streamlit 
+pip install pandas 
+pip install scikit-learn==1.2.2
+pip install pickle 
+from sklearn.tree import DecisionTreeClassifier
+pip install numpy 
