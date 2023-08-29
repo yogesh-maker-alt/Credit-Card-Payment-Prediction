@@ -5,9 +5,16 @@ import pickle as pk
 from sklearn.tree import DecisionTreeClassifier
 import numpy as np
 
+def checkNotNull(Credit_amt, population, distance, hour, history_30, interaction_30):
+    if Credit_amt == 0 or population == 0 or distance == 0 or hour == 0 or history_30 == 0 or interaction_30 == 0:
+        st.error("Field Should Not be Zero")
+        return True
+    else:
+        return False
+    
 def Prediction(x):
     
-    with open('D:\DBDA Project\decision_model.pkl', 'rb') as file:
+    with open('decision_model.pkl', 'rb') as file:
         loaded_model = pk.load(file) 
     
     prediction = loaded_model.predict(x.reshape(1,-1))
@@ -66,31 +73,35 @@ def run():
     # Add a horizontal line separator
     st.markdown("---")
 
-    st.write("Fill in the required information to predict loan approval.")
+    st.write("Fill In The Required Information to Predict")
 
     # Add input fields for the required features with custom styling
     Credit_amt = st.number_input("💰 Credit Card Amount", step=1, value=0)
     population = st.number_input("🌍 Population", step=1, value=0)
     distance = st.number_input("🏢 Distance", step=1, value=0)
     hour = st.number_input("🌎 Hour", step=1, value=0)
-    history_30 = st.number_input("🏢  History Days 30", step=1, value=1)
-    interaction_30 = st.number_input("🏙️ Interattion Days 30", step=1, value=1)
-    credit_card_number = st.number_input("💳 Credit Card Number", step=1, value=1)
+    history_30 = st.number_input("🏢  30 Days Payment History", step=1, value=0)
+    interaction_30 = st.number_input("🏙️ 30 Days Payment Interaction", step=1, value=0)
+    credit_card_number = st.number_input("💳 Credit Card Number", step=1, value=0)
+    with st.container():
+        st.caption("Above Details Are Transformed Attributes for Machine Learning Model for the Prediction")
+        st.caption("Not Actual Attributes Which Are Received From Bank Data")
+
 
     # Apply styling to the submit button
     submit_button_style = "background-color: #007ACC; color: white; padding: 10px; border-radius: 5px; text-align: center;"
     if st.button("🚀 Submit", key="submit", help="Click to predict loan approval"):
         # Prepare the features for prediction
-        
+        res = checkNotNull(Credit_amt, population, distance, hour, history_30, interaction_30)
         arr = transformf(Credit_amt, population, distance, hour, history_30, interaction_30)
         #x = scaling(arr)
 
         prediction = Prediction(arr)
 
-        if prediction[0] == 1:
+        if prediction[0] == 1 and res == False:
             st.error("❌ Credit Card Payment is Fraud for the Card Number ")
             st.error(credit_card_number)
-        else:
+        elif res == False:
             st.success("✅ Credit Card Payment is Not Fraud for the Card Number ")
             st.success(credit_card_number)
     st.divider()
